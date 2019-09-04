@@ -38,7 +38,37 @@ establishment of an absolute Tyranny over these States. To prove this, let Facts
 candid world.
 """
 ```
+```
+var decOfIndepdenceArr = declarationOfIndependence.replacingOccurrences(of: "\n", with: " ")
+let newStrNoPunc = decOfIndepdenceArr.components(separatedBy: .punctuationCharacters).joined()
+var decOfIndepArr = newStrNoPunc.components(separatedBy: " ")
+let newArr = decOfIndepArr.filter { (word) -> Bool in
+return word.count > 5
+}
 
+var freqWordDic = [String:Int]()
+
+for word in newArr {
+if freqWordDic[word] != nil {
+freqWordDic[word]! += 1
+} else {
+freqWordDic[word] = 1
+}
+}
+
+var mostFreq = String()
+
+var valueCount = 0
+
+for (key, value) in freqWordDic {
+if value > valueCount {
+valueCount = value
+mostFreq = key
+}
+}
+
+print(mostFreq)
+```
 ## Question 2
 
 Make an array that contains all elements that appear more than twice in someRepeatsAgain.
@@ -129,6 +159,54 @@ b. Write a function that takes in an array of `Receipts` and returns an array of
 
 c. Write a function that takes in an array of `Receipts` and returns an array of those receipts sorted by price
 
+```
+Struct Receipt {
+let storeName: String
+let items: [ReceiptItem]
+
+func totalCost() -> Double {
+var priceArr = [Double]()
+for item in items {
+priceArr.append(item.price)
+}
+
+return priceArr.reduce(0, +)
+
+}
+}
+
+struct ReceiptItem {
+let name: String
+let price: Double
+}
+
+func sameNames(receipt: [Receipt], storeName: String) -> [Receipt]  {
+var returnArray =  receipt.filter { ($0.storeName == storeName)
+//        return receipt.storeName == storeName
+}
+return returnArray
+}
+
+func sortedByPrice(ticket: [Receipt]) -> [Receipt] {
+var sortedPrice = ticket.sorted { $0.totalCost() < $1.totalCost()
+//        (ticket1, ticket2) -> Bool in
+//        return ticket1.totalCost() < ticket2.totalCost()
+}
+return sortedPrice
+}
+
+
+
+let apple = ReceiptItem(name: "Apple", price: 2.00)
+let cereal = ReceiptItem(name: "Captain Crunch", price: 4.00)
+let soda = ReceiptItem(name: "Coke", price: 2.50)
+let itemsArr = [apple, cereal, soda]
+
+
+let recipet = Receipt(storeName: "Whole foods", items: itemsArr)
+
+print(recipet.totalCost())
+```
 ## Question 6
 
 a. The code below doesn't compile.  Why?  Fix it so that it does compile.
