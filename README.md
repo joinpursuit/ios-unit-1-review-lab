@@ -211,10 +211,41 @@ struct ReceiptItem {
 
 a. Given the structs above, add a method to `Receipt` that returns the total cost of all items
 
+answer:
+```swift
+struct Receipt {
+    let storeName: String
+    let items: [ReceiptItem]
+    
+    func totalPrice() -> Double {
+        var sum = 0.0
+        for item in self.items {
+            sum += item.price
+        }
+        return sum
+    }
+}
+```
+
 b. Write a function that takes in an array of `Receipts` and returns an array of `Receipts` that match a given store name
+```swift
+func storeReceipts(_ arr: [Receipt], store: String) -> [Receipt] {
+    var matchingStoreReceipts = [Receipt]()
+    for receipt in arr {
+        if receipt.storeName == store {
+            matchingStoreReceipts.append(receipt)
+        }
+    }
+    return matchingStoreReceipts
+}
+```
 
 c. Write a function that takes in an array of `Receipts` and returns an array of those receipts sorted by price
-
+```swift
+func sortedByPrice(_ arr: [Receipt]) -> [Receipt] {
+    arr.sorted(by: {$0.totalPrice() < $1.totalPrice()} )
+}
+```
 ## Question 6
 
 a. The code below doesn't compile.  Why?  Fix it so that it does compile.
@@ -238,14 +269,19 @@ fred.name = "Brick"
 fred.weight = 999.2
 fred.homePlanet = "Mars"
 ```
+answer:
+change Giant's  `homePlanet` property to a `var`.
 
 b. Using the Giant class. What will the value of `edgar.name` be after the code below runs? How about `jason.name`? Explain why.
+
 
 ```swift
 let edgar = Giant(name: "Edgar", weight: 520.0, homePlanet: "Earth")
 let jason = edgar
 jason.name = "Jason"
 ```
+answer:
+The value of `edgar.name` will be `"Jason"`.  The value of `jason.name` will also be `"Jason"`.  This is because classes are reference types.  Weheever a new variable is assigned a value of another variable that uses a class, it doesnt store a new value it simply takes their value for themselves to use.  So whenever this new variable changes, so does the old variable.
 
 ## Question 7
 
@@ -265,15 +301,114 @@ struct BankAccount {
 ```
 
 a. Explain why the code above doesn't compile, then fix it.
-
+answer:
+This code won't compile because structs are generally immutable.  To fix this, we need to make the methods mutable by prefixing `mutating` on all `func`.
+```swift
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+    }
+    
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+    }
+}
+```
 b. Add a property called `deposits` of type `[Double]` that stores all of the deposits made to the bank account
-
+```swift
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits = [Double]()
+    
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+        deposits.append(amount)
+    }
+}
+```
 c. Add a property called `withdraws` of type `[Double]` that stores all of the withdraws made to the bank account
+```swift
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits = [Double]()
+    var withdraws = [Double]()
+
+    
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+        deposits.append(amount)
+    }
+    
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+        withdraws.append(amount)
+    }
+}
+```
 
 d. Add a property called `startingBalance`.  Have this property be set to the original balance, and don't allow anyone to change it
+```swift
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits = [Double]()
+    var withdraws = [Double]()
+    private var startingBalance: Double { didSet { startingBalance = balance } }
+    
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+        deposits.append(amount)
+    }
+    
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+        withdraws.append(amount)
+    }
+    
+    init(owner: String, balance: Double) {
+        self.owner = owner
+        self.balance = balance
+        self.startingBalance = balance
+    }
+}
+```
 
 e. Add a method called `totalGrowth` that returns a double representing the change in the balance from the starting balance to the current balance
 
+```swift
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits = [Double]()
+    var withdraws = [Double]()
+    private var startingBalance: Double { didSet { startingBalance = balance } }
+    
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+        deposits.append(amount)
+    }
+    
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+        withdraws.append(amount)
+    }
+    
+    func totalGrowth() -> Double {
+        ((balance - startingBalance) / startingBalance) * 100
+    }
+    
+    init(owner: String, balance: Double) {
+        self.owner = owner
+        self.balance = balance
+        self.startingBalance = balance
+    }
+}
+```
 ## Question 8
 
 ```swift
@@ -293,9 +428,41 @@ House Targaryen - Fire and Blood
 
 House Lannister - A Lannister always pays his debts
 ```
-
+answer:
+```swift
+func houseMotto(_ house: GameOfThronesHouse) -> String {
+    switch house {
+    case .stark:
+        return "Ours is the Fury"
+    case .lannister:
+        return "Winter is coming"
+    case .targaryen:
+        return "Fire and Blood"
+    case .baratheon:
+        return "A Lannister always pays his debts."
+    }
+}
+```
 b. Move that function to inside the enum as a method
-
+answer:
+```swift
+enum GameOfThronesHouse: String {
+    case stark, lannister, targaryen, baratheon
+    
+    func houseMotto() -> String {
+        switch self {
+        case .stark:
+            return "Ours is the Fury"
+        case .lannister:
+            return "Winter is coming"
+        case .targaryen:
+            return "Fire and Blood"
+        case .baratheon:
+            return "A Lannister always pays his debts."
+        }
+    }
+}
+```
 ## Question 9
 
 What are the contents of `library1` and `library2`? Explain why.
@@ -320,6 +487,8 @@ let library2 = library
 library2.add(track: "Come As You Are")
 ```
 
+The contents of `library1` and `library2` are the same.  This is because class is a reference type.
+
 ## Question 10
 
 Make a function that takes in an array of strings and returns an array of strings. The function should determine if the string can be typed out using just one row on the keyboard. If the string can be typed out using just one row, that string should be in the returned array.  
@@ -328,4 +497,24 @@ Make a function that takes in an array of strings and returns an array of string
 Input: ["Hello", "Alaska", "Dad", "Peace", "Power"]
 
 Output: ["Alaska", "Dad", "Power"]
+```
+answer:
+```swift
+func oneRowStrings(_ arr: [String]) -> [String] {
+    let row1 = Set("`1234567890-=~!@#$%^&*()_+")
+    let row2 = Set("qwertyuiop[]QWERTYUIOP{}|")
+    let row3 = Set("asdfghjkl;'ASDFGHJKL:")
+    let row4 = Set("zxcvbnm,./ZXCVBNM<>?")
+    var oneRowString = [String]()
+    
+    for string in arr {
+        if row1.isSuperset(of: string) ||
+            row2.isSuperset(of: string) ||
+            row3.isSuperset(of: string) ||
+            row4.isSuperset(of: string) {
+            oneRowString.append(string)
+        }
+    }
+    return oneRowString
+}
 ```

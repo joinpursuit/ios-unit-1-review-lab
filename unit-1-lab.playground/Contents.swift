@@ -110,32 +110,32 @@ let hi = "hello there"
 print(hi.sorted(by: {$0 > $1 }))
 
 let letterValues = [
-"a" : 54,
-"b" : 24,
-"c" : 42,
-"d" : 31,
-"e" : 35,
-"f" : 14,
-"g" : 15,
-"h" : 311,
-"i" : 312,
-"j" : 32,
-"k" : 93,
-"l" : 203,
-"m" : 212,
-"n" : 41,
-"o" : 102,
-"p" : 999,
-"q" : 1044,
-"r" : 404,
-"s" : 649,
-"t" : 414,
-"u" : 121,
-"v" : 838,
-"w" : 555,
-"x" : 1001,
-"y" : 123,
-"z" : 432
+    "a" : 54,
+    "b" : 24,
+    "c" : 42,
+    "d" : 31,
+    "e" : 35,
+    "f" : 14,
+    "g" : 15,
+    "h" : 311,
+    "i" : 312,
+    "j" : 32,
+    "k" : 93,
+    "l" : 203,
+    "m" : 212,
+    "n" : 41,
+    "o" : 102,
+    "p" : 999,
+    "q" : 1044,
+    "r" : 404,
+    "s" : 649,
+    "t" : 414,
+    "u" : 121,
+    "v" : 838,
+    "w" : 555,
+    "x" : 1001,
+    "y" : 123,
+    "z" : 432
 ]
 
 var codeString = "aldfjaekwjnfaekjnf"
@@ -166,3 +166,168 @@ func arrayWithLargestSum(_ arrArr: [[Int]]) -> [Int] {
 
 arrayWithLargestSum([[2,4,1],[3,0],[9,3]])
 
+struct Receipt {
+    let storeName: String
+    let items: [ReceiptItem]
+    
+    func totalPrice() -> Double {
+        var sum = 0.0
+        for item in self.items {
+            sum += item.price
+        }
+        return sum
+    }
+}
+
+struct ReceiptItem {
+    let name: String
+    let price: Double
+}
+
+func storeReceipts(_ arr: [Receipt], store: String) -> [Receipt] {
+    var matchingStoreReceipts = [Receipt]()
+    for receipt in arr {
+        if receipt.storeName == store {
+            matchingStoreReceipts.append(receipt)
+        }
+    }
+    return matchingStoreReceipts
+}
+
+func sortedByPrice(_ arr: [Receipt]) -> [Receipt] {
+    arr.sorted(by: {$0.totalPrice() < $1.totalPrice()} )
+}
+
+class Giant {
+    var name: String
+    var weight: Double
+    var homePlanet: String
+    
+    init(name: String, weight: Double, homePlanet: String) {
+        self.name = name
+        self.weight = weight
+        self.homePlanet = homePlanet
+    }
+}
+
+let fred = Giant(name: "Fred", weight: 340.0, homePlanet: "Earth")
+
+fred.name = "Brick"
+fred.weight = 999.2
+fred.homePlanet = "Mars"
+
+let edgar = Giant(name: "Edgar", weight: 520.0, homePlanet: "Earth")
+let jason = edgar
+jason.name = "Jason"
+print(edgar.name)
+print(jason.name)
+
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits = [Double]()
+    var withdraws = [Double]()
+    private var startingBalance: Double { didSet { startingBalance = balance } }
+    
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+        deposits.append(amount)
+    }
+    
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+        withdraws.append(amount)
+    }
+    
+    func totalGrowth() -> Double {
+        ((balance - startingBalance) / startingBalance) * 100
+    }
+    
+    init(owner: String, balance: Double) {
+        self.owner = owner
+        self.balance = balance
+        self.startingBalance = balance
+    }
+}
+
+var bank = BankAccount(owner: "Howard", balance: 20)
+bank.deposit(25)
+print(bank.balance)
+
+enum GameOfThronesHouse: String {
+    case stark, lannister, targaryen, baratheon
+    
+    func houseMotto() -> String {
+        switch self {
+        case .stark:
+            return "Ours is the Fury"
+        case .lannister:
+            return "Winter is coming"
+        case .targaryen:
+            return "Fire and Blood"
+        case .baratheon:
+            return "A Lannister always pays his debts."
+        }
+    }
+}
+
+func houseMotto(_ house: GameOfThronesHouse) -> String {
+    switch house {
+    case .stark:
+        return "Ours is the Fury"
+    case .lannister:
+        return "Winter is coming"
+    case .targaryen:
+        return "Fire and Blood"
+    case .baratheon:
+        return "A Lannister always pays his debts."
+    }
+}
+
+class MusicLibrary {
+    var tracks: [String]
+    
+    init() {
+        tracks = []
+    }
+    
+    func add(track: String) {
+        tracks.append(track)
+    }
+}
+
+let library1 = MusicLibrary()
+library1.add(track: "Michelle")
+library1.add(track: "Voodoo Child")
+let library2 = library1
+library2.add(track: "Come As You Are")
+
+print(library1.tracks)
+print(library2.tracks)
+
+let row1 = Set("`1234567890-=~!@#$%^&*()_+")
+let row2 = Set("qwertyuiop[]QWERTYUIOP{}|")
+let row3 = Set("asdfghjkl;'ASDFGHJKL:")
+let row4 = Set("zxcvbnm,./ZXCVBNM<>?")
+
+let ok = "opz"
+row2.isSuperset(of: ok)
+func oneRowStrings(_ arr: [String]) -> [String] {
+    let row1 = Set("`1234567890-=~!@#$%^&*()_+")
+    let row2 = Set("qwertyuiop[]QWERTYUIOP{}|")
+    let row3 = Set("asdfghjkl;'ASDFGHJKL:")
+    let row4 = Set("zxcvbnm,./ZXCVBNM<>?")
+    var oneRowString = [String]()
+    
+    for string in arr {
+        if row1.isSuperset(of: string) ||
+            row2.isSuperset(of: string) ||
+            row3.isSuperset(of: string) ||
+            row4.isSuperset(of: string) {
+            oneRowString.append(string)
+        }
+    }
+    return oneRowString
+}
+
+oneRowStrings(["Hello", "Alaska", "Dad", "Peace", "Power"])
