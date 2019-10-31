@@ -97,3 +97,102 @@ func appearsMoreThan2(_ arr: [Int]) -> [Int] {
 //Call function
 appearsMoreThan2(someRepeatsAgain)
 
+//=============================================================================================================================//
+
+// Q3. Identify if there are 3 integers in the following array that sum to 10. If so, print them. If there are multiple triplets, print all possible triplets.
+
+var tripleSumArr = [-20,-14, -8,-5,-3,-2,1,2,3,4,9,15,20,30]
+
+
+
+func tripletsSum3(_ numArr: [Int]) -> [[Int]] {
+    var tripletSumArr = [[Int]]()
+    
+    for a in numArr { // O(n ^ 3)
+        for b in numArr{
+            for c in numArr {
+                var triplet = [Int]()
+                if a + b + c == 10 {
+                    triplet.append(a)
+                    triplet.append(b)
+                    triplet.append(c)
+                    tripletSumArr.append(triplet)
+                }
+            }
+        }
+    }
+    
+    return tripletSumArr
+}
+
+tripletsSum3(tripleSumArr)
+
+// Q4.
+
+let letterValues = [
+"a" : 54,
+"b" : 24,
+"c" : 42,
+"d" : 31,
+"e" : 35,
+"f" : 14,
+"g" : 15,
+"h" : 311,
+"i" : 312,
+"j" : 32,
+"k" : 93,
+"l" : 203,
+"m" : 212,
+"n" : 41,
+"o" : 102,
+"p" : 999,
+"q" : 1044,
+"r" : 404,
+"s" : 649,
+"t" : 414,
+"u" : 121,
+"v" : 838,
+"w" : 555,
+"x" : 1001,
+"y" : 123,
+"z" : 432
+]
+
+// a. Sort the string below in descending order according the dictionary letterValues (decreasing)
+var codeString = "aldfjaekwjnfaekjnf"
+
+var decLetterValues = letterValues.sorted(by: {$0.value > $1.value})
+
+var decCodeString = ""
+
+for (letter, _) in decLetterValues {
+    for char in codeString {
+        if char.description == letter {
+            decCodeString += char.description
+        } else {
+            continue
+        }
+    }
+}
+
+print(decCodeString)
+
+
+// b. Sort the string below in ascending order according the dictionary letterValues
+var codeStringTwo = "znwemnrfewpiqn"
+
+var incLetterValues = letterValues.sorted(by: {$0.value < $1.value})
+
+var incCodeString = ""
+
+for (letter, _) in incLetterValues {
+    for char in codeStringTwo {
+        if char.description == letter {
+            incCodeString += char.description
+        } else {
+            continue
+        }
+    }
+}
+
+print(incCodeString)
