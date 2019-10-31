@@ -70,35 +70,30 @@ mostFrequentWord(declarationOfIndependence) // returns government
 
 var someRepeatsAgain = [25,11,30,31,50,28,4,37,13,20,24,38,28,14,44,33,7,43,39,35,36,42,1,40,7,14,23,46,21,39,11,42,12,38,41,48,20,23,29,24,50,41,38,23,11,30,50,13,13,16,10,8,3,43,10,20,28,39,24,36,21,13,40,25,37,39,31,4,46,20,38,2,7,11,11,41,45,9,49,31,38,23,41,16,49,29,14,6,6,11,5,39,13,17,43,1,1,15,25]
 
-//loop through the array and append to another array all the ints that appear once. and if they are found again (by comparing to the new array) append them to another array that holds the nums that appear more than twice
-var appearsOnce = [Int]()
-var appearsTwice = [Int]()
-
-someRepeatsAgain.count
-
-for num in someRepeatsAgain {
-    if appearsOnce.contains(num) {
-        appearsTwice.append(num)
-    } else if !appearsTwice.contains(num) {
-        appearsOnce.append(num)
-    }
-}
-
-// print(appearsTwice) // list of arrays that appear twice not more than twice NOT WHAT IS ASKED FOR****
-
 // create a dictionay with the Int: count and then filter those values and return them to an array
 
-var numDict = [Int: Int]() // -> this will now become a dictionary
-var count = 0
+func appearsMoreThan2(_ arr: [Int]) -> [Int] {
+    var numDict = [Int: Int]() // -> this will now become a dictionary
 
-for num in someRepeatsAgain {
-    if numDict.keys.contains(num) {
-        count += 1
-        numDict[num] = count
-    } else  {
-        numDict[num] = 1
-        // appearsOnce.append(num)
+    for num in arr {
+        if let occurance = numDict[num] {
+            numDict[num] = occurance + 1
+        } else  {
+            numDict[num] = 1
+        }
     }
-}
 
-print(numDict)
+    var appearsMoreThanTwice = [Int]()
+
+    for (num, occurance) in numDict {
+        if occurance > 2 {
+            appearsMoreThanTwice.append(num)
+        }
+    }
+
+    // print(appearsMoreThanTwice)
+    return appearsMoreThanTwice
+}
+//Call function
+appearsMoreThan2(someRepeatsAgain)
+
