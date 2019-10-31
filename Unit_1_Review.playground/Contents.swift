@@ -33,40 +33,72 @@ establishment of an absolute Tyranny over these States. To prove this, let Facts
 candid world.
 """
 
-let highestValue: Int
-var mostFreqWord: String = "word"
-var counter: Int = 0 // will keep track of number of times word is found
-var wordsDict = [String: Int]()
 
-var noPuncString = declarationOfIndependence.filter {!$0.isPunctuation} // issue: when also filtering new line here the \n are being removed and not repaced with spaces leading to combined words
-var noNewLineStr = noPuncString.replacingOccurrences(of: "\n", with: " ") // removed \n and replaced it with space to solve above problem
-var strArray = noNewLineStr.components(separatedBy: " ") // creats an array of the words
-var greaterThanFive = strArray.filter {$0.count > 5} // filters words to greater than 5 length
+func mostFrequentWord(_ str: String) -> String {
+    let punctuationAndLines = CharacterSet.punctuationCharacters.union(CharacterSet.whitespacesAndNewlines) // creates a character set with punc, spaces and new lines
+    let stringArray = str.lowercased().components(separatedBy: punctuationAndLines).filter({$0.count > 5})
+    var wordDict = [String: Int]()
+    
+    //populating the dictionary:
+    for word in stringArray {
+        if let count = wordDict[word] {
+            wordDict[word] = count + 1
+        } else {
+             wordDict[word] = 1
+        }
+    }
+    
+    let highestValue = wordDict.values.max() ?? 0
+    var mostFreqword = ""
+    
+    for (word, _) in wordDict {
+        if wordDict[word] == highestValue {
+            mostFreqword = word
+        }
+    }
+    
+    
 
+    return mostFreqword
+}
 
-// Plan: will create a dictionary to store the words and their occurances
-// will loop through the array if the word is not found in the dictionary add to dictionary and set its counter to 1, otherwise if it is found just increment the counter and set new count to the same key (word)
+mostFrequentWord(declarationOfIndependence) // returns government
 
-// creates the dictionary:
-for word in greaterThanFive {
-    if wordsDict.keys.contains(word) {
-        counter = 1
-        wordsDict[word] = counter
-    } else {
-        counter += 1
-        wordsDict[word] = counter
-        
+//=============================================================================================================================//
+
+// Q2: Make an array that contains all elements that appear more than twice in someRepeatsAgain.
+
+var someRepeatsAgain = [25,11,30,31,50,28,4,37,13,20,24,38,28,14,44,33,7,43,39,35,36,42,1,40,7,14,23,46,21,39,11,42,12,38,41,48,20,23,29,24,50,41,38,23,11,30,50,13,13,16,10,8,3,43,10,20,28,39,24,36,21,13,40,25,37,39,31,4,46,20,38,2,7,11,11,41,45,9,49,31,38,23,41,16,49,29,14,6,6,11,5,39,13,17,43,1,1,15,25]
+
+//loop through the array and append to another array all the ints that appear once. and if they are found again (by comparing to the new array) append them to another array that holds the nums that appear more than twice
+var appearsOnce = [Int]()
+var appearsTwice = [Int]()
+
+someRepeatsAgain.count
+
+for num in someRepeatsAgain {
+    if appearsOnce.contains(num) {
+        appearsTwice.append(num)
+    } else if !appearsTwice.contains(num) {
+        appearsOnce.append(num)
     }
 }
 
-// testing to check most frequent value
-highestValue = wordsDict.values.max() ?? 0 // prints 41 which belongs to the word "deriving" : 41
+// print(appearsTwice) // list of arrays that appear twice not more than twice NOT WHAT IS ASKED FOR****
 
-// looping to find the word that corresponds to the most frequent value
-for (word, count) in wordsDict {
-    if count == highestValue {
-    mostFreqWord = word
+// create a dictionay with the Int: count and then filter those values and return them to an array
+
+var numDict = [Int: Int]() // -> this will now become a dictionary
+var count = 0
+
+for num in someRepeatsAgain {
+    if numDict.keys.contains(num) {
+        count += 1
+        numDict[num] = count
+    } else  {
+        numDict[num] = 1
+        // appearsOnce.append(num)
     }
 }
 
-print("The most frequent word in the provided excerpt from the Declaration of Independence is \"\(mostFreqWord)\" which occured \(highestValue) times.")
+print(numDict)
