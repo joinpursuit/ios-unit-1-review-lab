@@ -1,6 +1,7 @@
 # Unit 1 Review Lab
 
 Before completing any of the review questions below, ensure that you have answered each question in the previous labs.
+Ok, going to complete previous labs.
 
 ## Question 1
 
