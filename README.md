@@ -340,6 +340,38 @@ struct BankAccount {
 
 a. Explain why the code above doesn't compile, then fix it.
 
+Answer
+```swift
+inorder to mutate the property in struct you have to call the function my saying "mutating func"
+
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits = [Double]()
+    var withdrawers = [Double]()
+    let startingBalance: Double
+    
+    init(owner: String, balance: Double) {
+        self.owner = owner
+        self.balance = balance
+        startingBalance = balance
+    }
+    
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+        deposits.append(amount)
+    }
+
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+        withdrawers.append(amount)
+    }
+    
+    func totalGrowth() -> Double {
+        return balance - startingBalance
+    }
+}
+```
 b. Add a property called `deposits` of type `[Double]` that stores all of the deposits made to the bank account
 
 c. Add a property called `withdraws` of type `[Double]` that stores all of the withdraws made to the bank account
@@ -367,7 +399,25 @@ House Targaryen - Fire and Blood
 
 House Lannister - A Lannister always pays his debts
 ```
-
+Answer
+```swift
+enum GameOfThronesHouse: String {
+    case stark, lannister, targaryen, baratheon
+    
+    func houseWords() -> String {
+        switch self {
+        case .stark:
+            return "Winter is coming"
+        case .lannister:
+            return "A Lannister always pays his debts"
+        case .targaryen:
+            return "Fire and Blood"
+        case .baratheon:
+            return "Ours is the Fury"
+        }
+    }
+}
+```
 b. Move that function to inside the enum as a method
 
 ## Question 9
@@ -393,7 +443,10 @@ library1.add(track: "Voodoo Child")
 let library2 = library
 library2.add(track: "Come As You Are")
 ```
-
+Answer
+```swift
+the contents of library1 is: [Michelle, Voodoo Child] but the code is not going to complile since library2 is equal to library(witch doesn't exist). if it said library1 there the contents of library1 and 2 will be + the [Come As You Are] since library2 is refrencing to library1 and changing the original value(it will be separated if the object was created with struct)
+```
 ## Question 10
 
 Make a function that takes in an array of strings and returns an array of strings. The function should determine if the string can be typed out using just one row on the keyboard. If the string can be typed out using just one row, that string should be in the returned array.  
@@ -402,4 +455,24 @@ Make a function that takes in an array of strings and returns an array of string
 Input: ["Hello", "Alaska", "Dad", "Peace", "Power"]
 
 Output: ["Alaska", "Dad", "Power"]
+```
+Answer
+```swift
+func oneRowWord(strArr: [String]) -> [String] {
+    let firstRow: Set<Character> = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
+    let secondRow: Set<Character> = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
+    let thirdRow: Set<Character> = ["z", "x", "c", "v", "b", "n", "m"]
+    var wordWithinOneRow = [String]()
+    
+    for word in strArr {
+        let wordArr = Set(word.lowercased())
+        print(wordArr)
+        if firstRow.isSuperset(of: wordArr) || secondRow.isSuperset(of: wordArr) || thirdRow.isSuperset(of: wordArr){
+            wordWithinOneRow.append(word)
+            print(wordArr)
+        }
+    }
+    
+    return wordWithinOneRow
+}
 ```
