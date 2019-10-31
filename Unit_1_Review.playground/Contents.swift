@@ -218,3 +218,57 @@ func largestArraySum(arrayOfarr: [[Int]]) -> [Int] {
 }
 
 largestArraySum(arrayOfarr: arrayOfarr)
+
+// Q5.
+
+struct Receipt {
+  let storeName: String
+  let items: [ReceiptItem]
+
+    // a. Given the structs above, add a method to Receipt that returns the total cost of all items
+    
+    func totalCost() -> Double {
+        var total: Double = 0
+        
+        for item in items {
+            total += item.price
+        }
+        return total
+    }
+
+}
+
+struct ReceiptItem {
+  let name: String
+  let price: Double
+}
+
+var reciptItem1 = ReceiptItem(name: "paint", price: 5.5)
+var reciptItem2 = ReceiptItem(name: "brush", price: 7.5)
+
+var myRecipt = Receipt(storeName: "homedepot", items: [reciptItem1, reciptItem2])
+var myRecipt2 = Receipt(storeName: "homedepot", items: [reciptItem1, reciptItem2])
+var myRecipt3 = Receipt(storeName: "lowes", items: [reciptItem1, reciptItem2])
+
+var arrOfRecipts = [myRecipt, myRecipt2, myRecipt3]
+
+myRecipt.totalCost()
+
+
+// b. Write a function that takes in an array of Receipts and returns an array of Receipts that match a given store name
+
+func oneStoreRecipt(recipts: [Receipt], storeName: String) -> [Receipt]{
+    var storeRecipts = [Receipt]()
+    
+    for recipt in recipts {
+        if recipt.storeName == storeName {
+            storeRecipts.append(recipt)
+        }
+        
+    }
+    return storeRecipts
+}
+
+oneStoreRecipt(recipts: arrOfRecipts, storeName: "homedepot")
+
+// c. Write a function that takes in an array of Receipts and returns an array of those receipts sorted by price
