@@ -127,7 +127,7 @@ func tripletsSum3(_ numArr: [Int]) -> [[Int]] {
 
 tripletsSum3(tripleSumArr)
 
-// Q4.
+// Q3. // again idk why
 
 let letterValues = [
 "a" : 54,
@@ -196,3 +196,25 @@ for (letter, _) in incLetterValues {
 }
 
 print(incCodeString)
+
+// Q4. Given an Array of Arrays of Ints, write a function that returns the Array of Ints with the largest sum:
+
+var arrayOfarr = [[2,4,1],[3,0],[9,3]]
+
+func largestArraySum(arrayOfarr: [[Int]]) -> [Int] {
+    
+    var largestSumArr = [Int]()
+    var largestSum = 0
+
+    for array in arrayOfarr {
+        let sum = array.reduce(0, +)
+        if sum > largestSum {
+            largestSumArr = array
+            largestSum = sum
+        }
+        
+    }
+    return largestSumArr
+}
+
+largestArraySum(arrayOfarr: arrayOfarr)
