@@ -38,6 +38,35 @@ establishment of an absolute Tyranny over these States. To prove this, let Facts
 candid world.
 """
 ```
+```
+var declarationSeparatedByPunctuation = declarationOfIndependence.components(separatedBy: CharacterSet.punctuationCharacters).joined().lowercased()
+//print(declarationSeparatedByPunctuation)
+
+var declarationWithNoPunctuation = declarationSeparatedByPunctuation.replacingOccurrences(of: "\n", with: " ")
+var declarationArray = declarationWithNoPunctuation.components(separatedBy: " ")
+//print(declarationArray)
+// making frequency dictionary
+var declarationDictionary = [String:Int]()
+for str in declarationArray {
+    if let value = declarationDictionary[str] {
+        declarationDictionary[str] = value + 1
+    }  else {
+        declarationDictionary[str] = 1
+  }
+}
+
+//print(declarationDictionary)
+var mostFrequentWord = String()
+var mostTimes = 0
+for (key, value) in declarationDictionary {
+    if value > mostTimes  && key.count > 5 {
+        mostFrequentWord = key
+        mostTimes = value
+    }
+}
+print(mostFrequentWord)
+```
+
 
 ## Question 2
 
@@ -46,6 +75,24 @@ Make an array that contains all elements that appear more than twice in someRepe
 
 ```swift
 var someRepeatsAgain = [25,11,30,31,50,28,4,37,13,20,24,38,28,14,44,33,7,43,39,35,36,42,1,40,7,14,23,46,21,39,11,42,12,38,41,48,20,23,29,24,50,41,38,23,11,30,50,13,13,16,10,8,3,43,10,20,28,39,24,36,21,13,40,25,37,39,31,4,46,20,38,2,7,11,11,41,45,9,49,31,38,23,41,16,49,29,14,6,6,11,5,39,13,17,43,1,1,15,25]
+```
+```
+var arrayDictionary = [Int:Int]()
+for num in someRepeatsAgain {
+    if let value = arrayDictionary[num] {
+        arrayDictionary[num] = value + 1
+    } else {
+        arrayDictionary[num] = 1
+    }
+}
+print(arrayDictionary)
+var arrayMoreThentwice = [Int]()
+for (key, value) in arrayDictionary {
+    if value > 2 {
+        arrayMoreThentwice.append(key)
+    }
+}
+print(arrayMoreThentwice)
 ```
 
 ## Question 3
@@ -96,6 +143,21 @@ var codeString = "aldfjaekwjnfaekjnf"
 
 b. Sort the string below in ascending order according the dictionary letterValues
 var codeStringTwo = "znwemnrfewpiqn"
+```
+var codeString = "aldfjaekwjnfaekjnf"
+var arrayCodeString = Array(codeString)
+arrayCodeString.sort { (char1, char2) -> Bool in
+    return letterValues[char1.description] ?? 0 > letterValues[char2.description] ?? 0
+}
+print(arrayCodeString)
+
+var codeStringTwo = "znwemnrfewpiqn"
+var arrayCodeStringTwo = Array(codeStringTwo)
+arrayCodeStringTwo.sort { (char1, char2) -> Bool in
+    return letterValues[char1.description] ?? 0 < letterValues[char2.description] ?? 0
+}
+print(arrayCodeStringTwo)
+```
 
 
 ## Question 4
@@ -107,6 +169,25 @@ Given an Array of Arrays of Ints, write a function that returns the Array of Int
 Input: [[2,4,1],[3,0],[9,3]]
 
 Output: [9,3]
+```
+```
+func largestSumArray(input: [[Int]]) -> [Int] {
+  var arrayOfSums = [Int]()
+    for arr in input {
+     var sum = arr.reduce(0, +)
+        arrayOfSums.append(sum)
+    }
+    var highestSum = 0
+    var highestSumIndex = 0
+    for (index, num) in arrayOfSums.enumerated() {
+        if num > highestSum {
+            highestSum = num
+            highestSumIndex = index
+        }
+    }
+    return input[highestSumIndex]
+}
+print(largestSumArray(input: arrayOfArrays))
 ```
 
 ## Question 5
@@ -124,10 +205,47 @@ struct ReceiptItem {
 ```
 
 a. Given the structs above, add a method to `Receipt` that returns the total cost of all items
+```
+struct Receipt {
+  let storeName: String
+  let items: [ReceiptItem]
+    func totalCost() -> Double {
+        self.items.reduce(0) { (sum, item) -> Double in
+            return item.price + sum
+        }
+}
+}
 
+struct ReceiptItem {
+  let name: String
+  let price: Double
+}
+```
 b. Write a function that takes in an array of `Receipts` and returns an array of `Receipts` that match a given store name
+```
+func recieptsFromStore(reciepts: [Receipt], storeName: String) -> [Receipt] {
+//    reciepts.filter { (reciept) -> Bool in
+//        reciept.storeName == storeName
+    var reciptsNew = [Receipt]()
+    for reciept in reciepts {
+        if reciept.storeName == storeName {
+            reciptsNew.append(reciept)
+        }
+    }
+return reciptsNew
+}
+```
 
 c. Write a function that takes in an array of `Receipts` and returns an array of those receipts sorted by price
+```
+func recieptsSorted(reciepts: [Receipt]) -> [Receipt] {
+    var myReciepts = reciepts
+    myReciepts.sort { (reciept, reciept2) -> Bool in
+        reciept.totalCost() < reciept2.totalCost()
+    }
+    return myReciepts
+}
+```
 
 ## Question 6
 
