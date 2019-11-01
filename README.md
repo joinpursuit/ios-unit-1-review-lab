@@ -506,7 +506,41 @@ House Targaryen - Fire and Blood
 House Lannister - A Lannister always pays his debts
 ```
 
+```swift
+func gOtQuote (house: GameOfThronesHouse) -> String {
+    switch house {
+    case .stark:
+        return "Winter is coming"
+    case .lannister:
+        return "A Lannister always pays his debts"
+    case .targaryen:
+        return "Fire and Blood"
+    case .baratheon:
+        return "Ours is the Fury"
+    }
+}
+```
+
 b. Move that function to inside the enum as a method
+
+```swift
+enum GameOfThronesHouse: String {
+    case stark, lannister, targaryen, baratheon
+    
+    func gOtQuote (house: GameOfThronesHouse) -> String {
+        switch house {
+        case .stark:
+            return "Winter is coming"
+        case .lannister:
+            return "A Lannister always pays his debts"
+        case .targaryen:
+            return "Fire and Blood"
+        case .baratheon:
+            return "Ours is the Fury"
+        }
+    }
+}
+```
 
 ## Question 9
 
@@ -531,6 +565,8 @@ library1.add(track: "Voodoo Child")
 let library2 = library
 library2.add(track: "Come As You Are")
 ```
+library1 & library2 contents = ["Michelle", "Voodoo Child", and "Come as You Are"]
+reason = library1 & library2 are class objects, thus passed values are by reference, namely considering that library2 did not create a new instance of MusicLibrary object, but rather was assigned to library1.
 
 ## Question 10
 

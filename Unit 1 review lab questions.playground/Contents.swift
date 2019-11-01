@@ -272,4 +272,43 @@ struct BankAccount {
 }
 
 //8
+enum GameOfThronesHouse: String {
+    case stark, lannister, targaryen, baratheon
+}
 
+func gOtQuote (house: GameOfThronesHouse) -> String {
+    switch house {
+    case .stark:
+        return "Winter is coming"
+    case .lannister:
+        return "A Lannister always pays his debts"
+    case .targaryen:
+        return "Fire and Blood"
+    case .baratheon:
+        return "Ours is the Fury"
+    }
+}
+
+//10
+//Input: ["Hello", "Alaska", "Dad", "Peace", "Power"]
+//
+//Output: ["Alaska", "Dad", "Power"]
+
+func isWithinRow(strArr: [String]) {
+    let rowOne:CharacterSet = ["q","w","e","r","t","y","u","i","o","p"]
+    let rowTwo:CharacterSet = ["a","s","d","f","g","h","j","k","l"]
+    let rowThree:CharacterSet = ["z","x","c","v","b","n","m"]
+    
+    strArr.filter { (str) -> Bool in
+        //need to figure out how to compare char of inputStr with characterSet
+        if st
+        
+        {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+isWithinRow(strArr: ["Hello", "Alaska", "Dad", "Peace", "Power"])
