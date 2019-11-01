@@ -263,4 +263,26 @@ Make a function that takes in an array of strings and returns an array of string
 Input: ["Hello", "Alaska", "Dad", "Peace", "Power"]
 
 Output: ["Alaska", "Dad", "Power"]
+
+Answer:
+
+let upperLettersOnKeyboard = Set("qwertyuiop")
+let middleLettersOnKeyboard = Set("asdfghjkl")
+let lowerLettersOnKeyboard = Set("zxcvbnm")
+
+func comparingWordsToKeyboardPosition(arrayOfWords: [String]) -> [String] {
+    var newArray = [String]()
+    for word in arrayOfWords {
+        if Set(word.lowercased()).isSubset(of: upperLettersOnKeyboard) ||
+            Set(word.lowercased()).isSubset(of: middleLettersOnKeyboard) ||
+            Set(word.lowercased()).isSubset(of: lowerLettersOnKeyboard) {
+            newArray.append(word)
+        }
+    }
+    return newArray
+}
+
+print(comparingWordsToKeyboardPosition(arrayOfWords: ["Hello", "Alaska", "Dad", "Peace", "Power"]))
+
+// Prints: ["Alaska", "Dad", "Power"]
 ```
