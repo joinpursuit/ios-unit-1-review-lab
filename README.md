@@ -108,6 +108,26 @@ Given an Array of Arrays of Ints, write a function that returns the Array of Int
 Input: [[2,4,1],[3,0],[9,3]]
 
 Output: [9,3]
+
+Answer:
+
+func largestSumOfAnArray (arrayNum1: [Int], arrayNum2: [Int], arrayNum3: [Int]) -> [Int] {
+    let sum1 = arrayNum1.reduce(0, +)
+    let sum2 = arrayNum2.reduce(0, +)
+    let sum3 = arrayNum3.reduce(0, +)
+    
+    if sum1 > sum2 && sum1 > sum3 {
+        return arrayNum1
+    } else if sum2 > sum1 && sum2 > sum3 {
+        return arrayNum2
+    } else if sum3 > sum1 && sum3 > sum2 {
+    return arrayNum3
+}
+    return[]
+}
+
+print(largestSumOfAnArray(arrayNum1: [2,4,1], arrayNum2: [3,0], arrayNum3: [9,3]))
+// Prints [9,3]
 ```
 
 ## Question 5
