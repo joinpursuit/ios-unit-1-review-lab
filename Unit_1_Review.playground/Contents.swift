@@ -312,4 +312,36 @@ jason.name = "Jason"
 
 // Both edgar.name and jason.name will be "Jason". this is because Giant is a class and classes are reference types. This means that since the instance jason is set equal to edgar, any changes to jason will change edgar
 
+// Q7:
+
+// a. Explain why the code above doesn't compile, then fix it.
+// Answer: The error results from the instance methods missing the "mutating" keyword, as it is necessary fot methods that will change a property.
+
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits: [Double] // b. Add a property called deposits of type [Double] that stores all of the deposits made to the bank account
+    var withdraws: [Double] // c. Add a property called withdraws of type [Double] that stores all of the withdraws made to the bank account
+    let startingBalance: Double
+
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+    }
+
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+    }
+    
+    // e. Add a method called totalGrowth that returns a double representing the change in the balance from the starting balance to the current balance - i think this needs to require an array of deposits and withdraws
+
+    
+  mutating func totalGrowth() -> Double {
+    balance = startingBalance
+    var growth: Double
+    balance = deposits.reduce(balance, +)
+    balance = withdraws.reduce(balance, -)
+    growth = balance - startingBalance
+        return growth
+    }
+}
 
