@@ -166,9 +166,40 @@ let letterValues = [
 a. Sort the string below in descending order according the dictionary letterValues
 var codeString = "aldfjaekwjnfaekjnf"
 
+```swift
+func sortStrFromDict (dict: [String:Int], str: String, ascOrDes: (Int,Int) -> Bool){
+    
+    let sortedStrFromPriority = str.sorted { (currentChar, nextChar) -> Bool in
+        if ascOrDes(dict[String(currentChar)]!,dict[String(nextChar)]!) {
+            return true
+        } else {
+            return false
+        }
+    }
+    print(String(sortedStrFromPriority))
+}
+
+sortStrFromDict(dict: letterValues, str: codeString, ascOrDes: >)
+```
 
 b. Sort the string below in ascending order according the dictionary letterValues
 var codeStringTwo = "znwemnrfewpiqn"
+
+```swift
+func sortStrFromDict (dict: [String:Int], str: String, ascOrDes: (Int,Int) -> Bool){
+    
+    let sortedStrFromPriority = str.sorted { (currentChar, nextChar) -> Bool in
+        if ascOrDes(dict[String(currentChar)]!,dict[String(nextChar)]!) {
+            return true
+        } else {
+            return false
+        }
+    }
+    print(String(sortedStrFromPriority))
+}
+
+sortStrFromDict(dict: letterValues, str: codeString, ascOrDes: <)
+```
 
 
 ## Question 4
@@ -180,6 +211,30 @@ Given an Array of Arrays of Ints, write a function that returns the Array of Int
 Input: [[2,4,1],[3,0],[9,3]]
 
 Output: [9,3]
+```
+
+```swift
+func largestSum(matrix: [[Int]]) -> [Int] {
+    
+    //closures experimentaton
+    let maxArr = matrix.filter { (subElement) -> Bool in
+        if subElement == matrix.max(by: { (currentSubElement, nextSubElement) -> Bool in
+            if currentSubElement.reduce(0,+) < nextSubElement.reduce(0,+){
+                return true
+            } else {
+                return false
+            }
+        })!{
+            return true
+        } else {
+            return false
+        }
+    }
+    return maxArr.reduce([], +)
+    
+}
+
+largestSum(matrix: input)
 ```
 
 ## Question 5

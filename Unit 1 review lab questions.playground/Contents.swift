@@ -107,3 +107,77 @@ func threeNumSum (inputArr: [Int], sum: Int) {
 }
 threeNumSum(inputArr: tripleSumArr, sum: 10)
 
+//3
+let letterValues = [
+"a" : 54,
+"b" : 24,
+"c" : 42,
+"d" : 31,
+"e" : 35,
+"f" : 14,
+"g" : 15,
+"h" : 311,
+"i" : 312,
+"j" : 32,
+"k" : 93,
+"l" : 203,
+"m" : 212,
+"n" : 41,
+"o" : 102,
+"p" : 999,
+"q" : 1044,
+"r" : 404,
+"s" : 649,
+"t" : 414,
+"u" : 121,
+"v" : 838,
+"w" : 555,
+"x" : 1001,
+"y" : 123,
+"z" : 432
+]
+
+var codeString = "aldfjaekwjnfaekjnf"
+
+func sortStrFromDict (dict: [String:Int], str: String, ascOrDes: (Int,Int) -> Bool){
+    
+    let sortedStrFromPriority = str.sorted { (currentChar, nextChar) -> Bool in
+        if ascOrDes(dict[String(currentChar)]!,dict[String(nextChar)]!) {
+            return true
+        } else {
+            return false
+        }
+    }
+    print(String(sortedStrFromPriority))
+}
+
+sortStrFromDict(dict: letterValues, str: codeString, ascOrDes: >)
+
+//4
+//Input: [[2,4,1],[3,0],[9,3]]
+
+//Output: [9,3]
+
+let input = [[2,4,1],[3,0],[9,3]]
+
+func largestSum(matrix: [[Int]]) -> [Int] {
+    
+    //closures experimentaton
+    let maxArr = matrix.filter { (subElement) -> Bool in
+        if subElement == matrix.max(by: { (currentSubElement, nextSubElement) -> Bool in
+            if currentSubElement.reduce(0,+) < nextSubElement.reduce(0,+){
+                return true
+            } else {
+                return false
+            }
+        })!{
+            return true
+        } else {
+            return false
+        }
+    }
+    return maxArr.reduce([], +)
+    
+}
+
+largestSum(matrix: input)
