@@ -1,15 +1,7 @@
-# Unit 1 Review Lab
+import UIKit
 
-Before completing any of the review questions below, ensure that you have answered each question in the previous labs.
+//question 1
 
-## Question 1
-
-Given the following excerpt from the Declaration of Independence, find the most frequent word that is longer than 5 characters.
-
- - use components(separatedBy:) to break up the string into an array.
- - use CharacterSet.punctuationCharacters in union with any other characters you don't want in your array, like spaces and new lines.
-
-```swift
 let declarationOfIndependence =
 
 """
@@ -77,14 +69,8 @@ func mostFrequentWordOverFiveChar(userStr inputStr: String) -> String {
 }
 
 mostFrequentWordOverFiveChar(userStr: declarationOfIndependence)
-```
 
-## Question 2
-
-Make an array that contains all elements that appear more than twice in someRepeatsAgain.
-
-
-```swift
+//2
 var someRepeatsAgain = [25,11,30,31,50,28,4,37,13,20,24,38,28,14,44,33,7,43,39,35,36,42,1,40,7,14,23,46,21,39,11,42,12,38,41,48,20,23,29,24,50,41,38,23,11,30,50,13,13,16,10,8,3,43,10,20,28,39,24,36,21,13,40,25,37,39,31,4,46,20,38,2,7,11,11,41,45,9,49,31,38,23,41,16,49,29,14,6,6,11,5,39,13,17,43,1,1,15,25]
 
 func repeatingNum (intArr: [Int]) -> [Int]{
@@ -104,13 +90,8 @@ func repeatingNum (intArr: [Int]) -> [Int]{
 }
 
 repeatingNum(intArr: someRepeatsAgain)
-```
 
-## Question 3
-
-Identify if there are 3 integers in the following array that sum to 10. If so, print them. If there are multiple triplets, print all possible triplets.
-
-```swift
+//3
 var tripleSumArr = [-20,-14, -8,-5,-3,-2,1,2,3,4,9,15,20,30]
 
 func threeNumSum (inputArr: [Int], sum: Int) {
@@ -126,13 +107,7 @@ func threeNumSum (inputArr: [Int], sum: Int) {
 }
 threeNumSum(inputArr: tripleSumArr, sum: 10)
 
-
-```
-
-
-## Question 3
-
-```swift
+//3
 let letterValues = [
 "a" : 54,
 "b" : 24,
@@ -161,12 +136,9 @@ let letterValues = [
 "y" : 123,
 "z" : 432
 ]
-```
 
-a. Sort the string below in descending order according the dictionary letterValues
 var codeString = "aldfjaekwjnfaekjnf"
 
-```swift
 func sortStrFromDict (dict: [String:Int], str: String, ascOrDes: (Int,Int) -> Bool){
     
     let sortedStrFromPriority = str.sorted { (currentChar, nextChar) -> Bool in
@@ -180,40 +152,14 @@ func sortStrFromDict (dict: [String:Int], str: String, ascOrDes: (Int,Int) -> Bo
 }
 
 sortStrFromDict(dict: letterValues, str: codeString, ascOrDes: >)
-```
 
-b. Sort the string below in ascending order according the dictionary letterValues
-var codeStringTwo = "znwemnrfewpiqn"
+//4
+//Input: [[2,4,1],[3,0],[9,3]]
 
-```swift
-func sortStrFromDict (dict: [String:Int], str: String, ascOrDes: (Int,Int) -> Bool){
-    
-    let sortedStrFromPriority = str.sorted { (currentChar, nextChar) -> Bool in
-        if ascOrDes(dict[String(currentChar)]!,dict[String(nextChar)]!) {
-            return true
-        } else {
-            return false
-        }
-    }
-    print(String(sortedStrFromPriority))
-}
+//Output: [9,3]
 
-sortStrFromDict(dict: letterValues, str: codeString, ascOrDes: <)
-```
+let input = [[2,4,1],[3,0],[9,3]]
 
-
-## Question 4
-
-Given an Array of Arrays of Ints, write a function that returns the Array of Ints with the largest sum:
-
-
-```swift
-Input: [[2,4,1],[3,0],[9,3]]
-
-Output: [9,3]
-```
-
-```swift
 func largestSum(matrix: [[Int]]) -> [Int] {
     
     //closures experimentaton
@@ -235,25 +181,8 @@ func largestSum(matrix: [[Int]]) -> [Int] {
 }
 
 largestSum(matrix: input)
-```
 
-## Question 5
-
-```swift
-struct Receipt {
-  let storeName: String
-  let items: [ReceiptItem]
-}
-
-struct ReceiptItem {
-  let name: String
-  let price: Double
-}
-```
-
-a. Given the structs above, add a method to `Receipt` that returns the total cost of all items
-
-```swift
+//5
 struct Receipt {
   let storeName: String
   let items: [ReceiptItem]
@@ -270,11 +199,7 @@ struct ReceiptItem {
   let name: String
   let price: Double
 }
-```
 
-b. Write a function that takes in an array of `Receipts` and returns an array of `Receipts` that match a given store name
-
-```swift
 func receiptsMatch(stapledReceipts:[Receipt], store: String) -> [Receipt] {
     var groupedReceipts = [Receipt]()
     for receipt in stapledReceipts {
@@ -286,11 +211,7 @@ func receiptsMatch(stapledReceipts:[Receipt], store: String) -> [Receipt] {
     }
     return groupedReceipts
 }
-```
 
-c. Write a function that takes in an array of `Receipts` and returns an array of those receipts sorted by price
-
-```swift
 func receiptSortedByPrice(stapledReceipts:[Receipt], ascOrDsc: (Double, Double) -> Bool) -> [Receipt]{
     stapledReceipts.sorted { (currentReceipt, nextReceipt) -> Bool in
         if ascOrDsc(currentReceipt.costOfItems(), nextReceipt.costOfItems()) {
@@ -300,17 +221,11 @@ func receiptSortedByPrice(stapledReceipts:[Receipt], ascOrDsc: (Double, Double) 
         }
     }
 }
-```
-
-## Question 6
-
-a. The code below doesn't compile.  Why?  Fix it so that it does compile.
-
-```swift
+//6
 class Giant {
     var name: String
     var weight: Double
-    let homePlanet: String
+    var homePlanet: String
 
     init(name: String, weight: Double, homePlanet: String) {
         self.name = name
@@ -324,111 +239,8 @@ let fred = Giant(name: "Fred", weight: 340.0, homePlanet: "Earth")
 fred.name = "Brick"
 fred.weight = 999.2
 fred.homePlanet = "Mars"
-```
-The object property of homePlanet is immutable due to it being a constant
 
-```swift
-class Giant {
-    var name: String
-    var weight: Double
-    var homePlanet: String
-
-    init(name: String, weight: Double, homePlanet: String) {
-        self.name = name
-        self.weight = weight
-        self.homePlanet = homePlanet
-    }
-}
-```
-
-b. Using the Giant class. What will the value of `edgar.name` be after the code below runs? How about `jason.name`? Explain why.
-
-```swift
-let edgar = Giant(name: "Edgar", weight: 520.0, homePlanet: "Earth")
-let jason = edgar
-jason.name = "Jason"
-```
-
-edgar.name = "Jason"
-jason.name = "Jason"
-reason = class objects pass values by reference
-
-## Question 7
-
-```
-struct BankAccount {
-    var owner: String
-    var balance: Double
-
-    func deposit(_ amount: Double) {
-        balance += amount
-    }
-
-    func withdraw(_ amount: Double) {
-        balance -= amount
-    }
-}
-```
-
-a. Explain why the code above doesn't compile, then fix it.
-
-The variable balance will not be able to mutate each time its encapsulating function is called.
-
-```swift
-struct BankAccount {
-    var owner: String
-    var balance: Double
-
-    mutating func deposit(_ amount: Double) {
-        balance += amount
-    }
-
-    mutating func withdraw(_ amount: Double) {
-        balance -= amount
-    }
-}
-```
-
-b. Add a property called `deposits` of type `[Double]` that stores all of the deposits made to the bank account
-
-```swift
-struct BankAccount {
-    var owner: String
-    var balance: Double
-    var deposits:Double
-
-    mutating func deposit(_ amount: Double) {
-        balance += amount
-    }
-
-    mutating func withdraw(_ amount: Double) {
-        balance -= amount
-    }
-}
-```
-
-c. Add a property called `withdraws` of type `[Double]` that stores all of the withdraws made to the bank account
-
-```swift
-struct BankAccount {
-    var owner: String
-    var balance: Double
-    var deposits:Double
-    var withdrawals:Double
-
-    mutating func deposit(_ amount: Double) {
-        balance += amount
-    }
-
-    mutating func withdraw(_ amount: Double) {
-        balance -= amount
-    }
-}
-```
-
-d. Add a property called `startingBalance`.  Have this property be set to the original balance, and don't allow anyone to change it
-
-```swift
+//7
 struct BankAccount {
     var owner: String
     var balance: Double
@@ -446,38 +258,12 @@ struct BankAccount {
 
     mutating func deposit(_ amount: Double) {
         balance += amount
+        deposits.append(amount)
     }
 
     mutating func withdraw(_ amount: Double) {
         balance -= amount
-    }
-}
-```
-
-e. Add a method called `totalGrowth` that returns a double representing the change in the balance from the starting balance to the current balance
-
-```swift
-struct BankAccount {
-    var owner: String
-    var balance: Double
-    var deposits = [Double]()
-    var withdrawals = [Double]()
-    private var startingBalance = Double()
-    
-    init(owner:String, balance: Double, deposits: [Double], withdrawals:[Double], startingBalance: Double) {
-        self.owner = owner
-        self.balance = balance
-        self.deposits = deposits
-        self.withdrawals = withdrawals
-        self.startingBalance = balance
-    }
-
-    mutating func deposit(_ amount: Double) {
-        balance += amount
-    }
-
-    mutating func withdraw(_ amount: Double) {
-        balance -= amount
+        withdrawals.append(amount)
     }
     
     func totalGrowth() -> Double {
@@ -485,28 +271,11 @@ struct BankAccount {
     }
 }
 
-```
-## Question 8
-
-```swift
+//8
 enum GameOfThronesHouse: String {
     case stark, lannister, targaryen, baratheon
 }
-```
 
-a. Write a function that takes an instance of GameOfThronesHouse as input and, using a switch statement, returns the correct house words.
-
-```
-House Baratheon - Ours is the Fury
-
-House Stark - Winter is coming
-
-House Targaryen - Fire and Blood
-
-House Lannister - A Lannister always pays his debts
-```
-
-```swift
 func gOtQuote (house: GameOfThronesHouse) -> String {
     switch house {
     case .stark:
@@ -519,66 +288,12 @@ func gOtQuote (house: GameOfThronesHouse) -> String {
         return "Ours is the Fury"
     }
 }
-```
 
-b. Move that function to inside the enum as a method
+//10
+//Input: ["Hello", "Alaska", "Dad", "Peace", "Power"]
+//
+//Output: ["Alaska", "Dad", "Power"]
 
-```swift
-enum GameOfThronesHouse: String {
-    case stark, lannister, targaryen, baratheon
-    
-    func gOtQuote (house: GameOfThronesHouse) -> String {
-        switch house {
-        case .stark:
-            return "Winter is coming"
-        case .lannister:
-            return "A Lannister always pays his debts"
-        case .targaryen:
-            return "Fire and Blood"
-        case .baratheon:
-            return "Ours is the Fury"
-        }
-    }
-}
-```
-
-## Question 9
-
-What are the contents of `library1` and `library2`? Explain why.
-
-```swift
-class MusicLibrary {
-    var tracks: [String]
-
-    init() {
-        tracks = []
-    }
-
-    func add(track: String) {
-        tracks.append(track)
-    }
-}
-
-let library1 = MusicLibrary()
-library1.add(track: "Michelle")
-library1.add(track: "Voodoo Child")
-let library2 = library
-library2.add(track: "Come As You Are")
-```
-library1 & library2 contents = ["Michelle", "Voodoo Child", and "Come as You Are"]
-reason = library1 & library2 are class objects, thus passed values are by reference, namely considering that library2 did not create a new instance of MusicLibrary object, but rather was assigned to library1.
-
-## Question 10
-
-Make a function that takes in an array of strings and returns an array of strings. The function should determine if the string can be typed out using just one row on the keyboard. If the string can be typed out using just one row, that string should be in the returned array.  
-
-```
-Input: ["Hello", "Alaska", "Dad", "Peace", "Power"]
-
-Output: ["Alaska", "Dad", "Power"]
-```
-
-```swift
 func isWithinRow(strArr: [String]) -> [String] {
     let rowOne:Set<Character> = ["q","w","e","r","t","y","u","i","o","p"]
     let rowTwo:Set<Character> = ["a","s","d","f","g","h","j","k","l"]
@@ -599,4 +314,3 @@ func isWithinRow(strArr: [String]) -> [String] {
 }
 
 isWithinRow(strArr: ["Hello", "Alaska", "Dad", "Peace", "Power"])
-```
