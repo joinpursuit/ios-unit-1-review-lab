@@ -282,3 +282,34 @@ func sortedByPrice(_ arrayOfRecipts: [Receipt]) -> [Receipt] {
 }
 
 sortedByPrice(arrOfRecipts)
+
+//Q6.
+// a. The code below doesn't compile. Why? Fix it so that it does compile.
+
+class Giant {
+    var name: String
+    var weight: Double
+    var homePlanet: String // changed this from a constant to a variable so that the instance fred can be assigned a new home homeplanet property.
+
+    init(name: String, weight: Double, homePlanet: String) {
+        self.name = name
+        self.weight = weight
+        self.homePlanet = homePlanet
+    }
+}
+
+let fred = Giant(name: "Fred", weight: 340.0, homePlanet: "Earth")
+
+fred.name = "Brick"
+fred.weight = 999.2
+fred.homePlanet = "Mars"
+
+// b. Using the Giant class. What will the value of edgar.name be after the code below runs? How about jason.name? Explain why.
+
+let edgar = Giant(name: "Edgar", weight: 520.0, homePlanet: "Earth")
+let jason = edgar
+jason.name = "Jason"
+
+// Both edgar.name and jason.name will be "Jason". this is because Giant is a class and classes are reference types. This means that since the instance jason is set equal to edgar, any changes to jason will change edgar
+
+
