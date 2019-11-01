@@ -181,3 +181,95 @@ func largestSum(matrix: [[Int]]) -> [Int] {
 }
 
 largestSum(matrix: input)
+
+//5
+struct Receipt {
+  let storeName: String
+  let items: [ReceiptItem]
+  func costOfItems () -> Double{
+    var totalCost = 0.0
+    for item in self.items {
+        totalCost += item.price
+    }
+    return totalCost
+  }
+}
+
+struct ReceiptItem {
+  let name: String
+  let price: Double
+}
+
+func receiptsMatch(stapledReceipts:[Receipt], store: String) -> [Receipt] {
+    var groupedReceipts = [Receipt]()
+    for receipt in stapledReceipts {
+        if receipt.storeName == store {
+            groupedReceipts.append(receipt)
+        } else {
+            continue
+        }
+    }
+    return groupedReceipts
+}
+
+func receiptSortedByPrice(stapledReceipts:[Receipt], ascOrDsc: (Double, Double) -> Bool) -> [Receipt]{
+    stapledReceipts.sorted { (currentReceipt, nextReceipt) -> Bool in
+        if ascOrDsc(currentReceipt.costOfItems(), nextReceipt.costOfItems()) {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+//6
+class Giant {
+    var name: String
+    var weight: Double
+    var homePlanet: String
+
+    init(name: String, weight: Double, homePlanet: String) {
+        self.name = name
+        self.weight = weight
+        self.homePlanet = homePlanet
+    }
+}
+
+let fred = Giant(name: "Fred", weight: 340.0, homePlanet: "Earth")
+
+fred.name = "Brick"
+fred.weight = 999.2
+fred.homePlanet = "Mars"
+
+//7
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits = [Double]()
+    var withdrawals = [Double]()
+    private var startingBalance = Double()
+    
+    init(owner:String, balance: Double, deposits: [Double], withdrawals:[Double], startingBalance: Double) {
+        self.owner = owner
+        self.balance = balance
+        self.deposits = deposits
+        self.withdrawals = withdrawals
+        self.startingBalance = balance
+    }
+
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+        deposits.append(amount)
+    }
+
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+        withdrawals.append(amount)
+    }
+    
+    func totalGrowth() -> Double {
+        balance - startingBalance
+    }
+}
+
+//8
+

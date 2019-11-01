@@ -253,9 +253,54 @@ struct ReceiptItem {
 
 a. Given the structs above, add a method to `Receipt` that returns the total cost of all items
 
+```swift
+struct Receipt {
+  let storeName: String
+  let items: [ReceiptItem]
+  func costOfItems () -> Double{
+    var totalCost = 0.0
+    for item in self.items {
+        totalCost += item.price
+    }
+    return totalCost
+  }
+}
+
+struct ReceiptItem {
+  let name: String
+  let price: Double
+}
+```
+
 b. Write a function that takes in an array of `Receipts` and returns an array of `Receipts` that match a given store name
 
+```swift
+func receiptsMatch(stapledReceipts:[Receipt], store: String) -> [Receipt] {
+    var groupedReceipts = [Receipt]()
+    for receipt in stapledReceipts {
+        if receipt.storeName == store {
+            groupedReceipts.append(receipt)
+        } else {
+            continue
+        }
+    }
+    return groupedReceipts
+}
+```
+
 c. Write a function that takes in an array of `Receipts` and returns an array of those receipts sorted by price
+
+```swift
+func receiptSortedByPrice(stapledReceipts:[Receipt], ascOrDsc: (Double, Double) -> Bool) -> [Receipt]{
+    stapledReceipts.sorted { (currentReceipt, nextReceipt) -> Bool in
+        if ascOrDsc(currentReceipt.costOfItems(), nextReceipt.costOfItems()) {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+```
 
 ## Question 6
 
@@ -280,6 +325,21 @@ fred.name = "Brick"
 fred.weight = 999.2
 fred.homePlanet = "Mars"
 ```
+The object property of homePlanet is immutable due to it being a constant
+
+```swift
+class Giant {
+    var name: String
+    var weight: Double
+    var homePlanet: String
+
+    init(name: String, weight: Double, homePlanet: String) {
+        self.name = name
+        self.weight = weight
+        self.homePlanet = homePlanet
+    }
+}
+```
 
 b. Using the Giant class. What will the value of `edgar.name` be after the code below runs? How about `jason.name`? Explain why.
 
@@ -288,6 +348,10 @@ let edgar = Giant(name: "Edgar", weight: 520.0, homePlanet: "Earth")
 let jason = edgar
 jason.name = "Jason"
 ```
+
+edgar.name = "Jason"
+jason.name = "Jason"
+reason = class objects pass values by reference
 
 ## Question 7
 
@@ -308,14 +372,120 @@ struct BankAccount {
 
 a. Explain why the code above doesn't compile, then fix it.
 
+The variable balance will not be able to mutate each time its encapsulating function is called.
+
+```swift
+struct BankAccount {
+    var owner: String
+    var balance: Double
+
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+    }
+
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+    }
+}
+```
+
 b. Add a property called `deposits` of type `[Double]` that stores all of the deposits made to the bank account
+
+```swift
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits:Double
+
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+    }
+
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+    }
+}
+```
 
 c. Add a property called `withdraws` of type `[Double]` that stores all of the withdraws made to the bank account
 
+```swift
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits:Double
+    var withdrawals:Double
+
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+    }
+
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+    }
+}
+```
+
 d. Add a property called `startingBalance`.  Have this property be set to the original balance, and don't allow anyone to change it
+
+```swift
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits = [Double]()
+    var withdrawals = [Double]()
+    private var startingBalance = Double()
+    
+    init(owner:String, balance: Double, deposits: [Double], withdrawals:[Double], startingBalance: Double) {
+        self.owner = owner
+        self.balance = balance
+        self.deposits = deposits
+        self.withdrawals = withdrawals
+        self.startingBalance = balance
+    }
+
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+    }
+
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+    }
+}
+```
 
 e. Add a method called `totalGrowth` that returns a double representing the change in the balance from the starting balance to the current balance
 
+```swift
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits = [Double]()
+    var withdrawals = [Double]()
+    private var startingBalance = Double()
+    
+    init(owner:String, balance: Double, deposits: [Double], withdrawals:[Double], startingBalance: Double) {
+        self.owner = owner
+        self.balance = balance
+        self.deposits = deposits
+        self.withdrawals = withdrawals
+        self.startingBalance = balance
+    }
+
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+    }
+
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+    }
+    
+    func totalGrowth() -> Double {
+        balance - startingBalance
+    }
+}
+
+```
 ## Question 8
 
 ```swift
