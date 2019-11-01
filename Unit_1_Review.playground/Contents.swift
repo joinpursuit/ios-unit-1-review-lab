@@ -272,3 +272,13 @@ func oneStoreRecipt(recipts: [Receipt], storeName: String) -> [Receipt]{
 oneStoreRecipt(recipts: arrOfRecipts, storeName: "homedepot")
 
 // c. Write a function that takes in an array of Receipts and returns an array of those receipts sorted by price
+
+func sortedByPrice(_ arrayOfRecipts: [Receipt]) -> [Receipt] {
+    var sortedReceipts = [Receipt]()
+    
+    sortedReceipts = arrayOfRecipts.sorted(by: {$0.totalCost() > $1.totalCost()})
+    
+    return sortedReceipts
+}
+
+sortedByPrice(arrOfRecipts)
