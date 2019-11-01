@@ -270,6 +270,9 @@ fred.name = "Brick"
 fred.weight = 999.2
 fred.homePlanet = "Mars"
 ```
+```
+change let homePlanet to var homePlanet
+```
 
 b. Using the Giant class. What will the value of `edgar.name` be after the code below runs? How about `jason.name`? Explain why.
 
@@ -277,6 +280,9 @@ b. Using the Giant class. What will the value of `edgar.name` be after the code 
 let edgar = Giant(name: "Edgar", weight: 520.0, homePlanet: "Earth")
 let jason = edgar
 jason.name = "Jason"
+```
+```
+both will be Jason because class is a reference type
 ```
 
 ## Question 7
@@ -297,7 +303,9 @@ struct BankAccount {
 ```
 
 a. Explain why the code above doesn't compile, then fix it.
-
+```
+it doesn't run because property balance is changing, that's why function has to me mutating
+```
 b. Add a property called `deposits` of type `[Double]` that stores all of the deposits made to the bank account
 
 c. Add a property called `withdraws` of type `[Double]` that stores all of the withdraws made to the bank account
@@ -305,7 +313,26 @@ c. Add a property called `withdraws` of type `[Double]` that stores all of the w
 d. Add a property called `startingBalance`.  Have this property be set to the original balance, and don't allow anyone to change it
 
 e. Add a method called `totalGrowth` that returns a double representing the change in the balance from the starting balance to the current balance
-
+```
+struct BankAccount {
+    var owner: String
+    var balance: Double
+    var deposits: [Double]
+    var withdraws: [Double]
+    let startingBalance: Double
+    
+    mutating func deposit(_ amount: Double) {
+        balance += amount
+    }
+    
+    mutating func withdraw(_ amount: Double) {
+        balance -= amount
+    }
+    func totalGrowth() {
+        balance - startingBalance
+    }
+}
+```
 ## Question 8
 
 ```swift
@@ -325,9 +352,48 @@ House Targaryen - Fire and Blood
 
 House Lannister - A Lannister always pays his debts
 ```
+```
+enum GameOfThronesHouse: String {
+    case stark, lannister, targaryen, baratheon
+    
+}
+
+func houseWords(input: GameOfThronesHouse)  {
+
+        switch input {
+        case .baratheon:
+            print("Ours is the Fury")
+        case .stark:
+            print("Winter is coming")
+        case .targaryen:
+            print("Fire and Blood")
+        case .lannister:
+            print("A Lannister always pays his debts")
+        }
+   ```
 
 b. Move that function to inside the enum as a method
+```
+enum GameOfThronesHouse: String {
+    case stark, lannister, targaryen, baratheon
+    
+    func houseWords()  {
 
+        switch self {
+        case .baratheon:
+            print("Ours is the Fury")
+        case .stark:
+            print("Winter is coming")
+        case .targaryen:
+            print("Fire and Blood")
+        case .lannister:
+            print("A Lannister always pays his debts")
+        }
+
+    }
+    
+}
+```
 ## Question 9
 
 What are the contents of `library1` and `library2`? Explain why.
@@ -351,6 +417,8 @@ library1.add(track: "Voodoo Child")
 let library2 = library
 library2.add(track: "Come As You Are")
 ```
+content of library1: "Michelle" and "Voodo child", because instance was created and tracks appended.
+library2 does not exist, because the re is no library
 
 ## Question 10
 
@@ -361,3 +429,22 @@ Input: ["Hello", "Alaska", "Dad", "Peace", "Power"]
 
 Output: ["Alaska", "Dad", "Power"]
 ```
+```
+func oneRowOnKeyboard (arr: [String]) -> [String]{
+   var stringTypedUsingOneRow = [String]()
+    let firstRowOfKeyboard = Set("qwertyuiop")
+    let secondRowOfKeyboard: Set<Character> = ["a","s","d","f","g","h","j","k","l"]
+    let thirdRowOfKeyboard: Set<Character> = ["z","x","c","v","b","n","m"]
+    for word in arr {
+        if Set(word.lowercased()).isSubset(of: firstRowOfKeyboard) ||
+            Set(word.lowercased()).isSubset(of: secondRowOfKeyboard) ||
+            Set(word.lowercased()).isSubset(of: thirdRowOfKeyboard) {
+                    
+            stringTypedUsingOneRow.append(word)
+            
+            
+        }
+    }
+    return stringTypedUsingOneRow
+}
+print(oneRowOnKeyboard(arr: ["Hello", "Alaska", "Dad", "Peace", "Power"]))
