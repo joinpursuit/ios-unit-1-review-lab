@@ -243,6 +243,7 @@ struct ReceiptItem {
   let price: Double
 }
 
+// I created this to test:
 var reciptItem1 = ReceiptItem(name: "paint", price: 5.5)
 var reciptItem2 = ReceiptItem(name: "brush", price: 7.5)
 
@@ -283,6 +284,7 @@ func sortedByPrice(_ arrayOfRecipts: [Receipt]) -> [Receipt] {
 
 sortedByPrice(arrOfRecipts)
 
+
 //Q6.
 // a. The code below doesn't compile. Why? Fix it so that it does compile.
 
@@ -310,7 +312,7 @@ let edgar = Giant(name: "Edgar", weight: 520.0, homePlanet: "Earth")
 let jason = edgar
 jason.name = "Jason"
 
-// Both edgar.name and jason.name will be "Jason". this is because Giant is a class and classes are reference types. This means that since the instance jason is set equal to edgar, any changes to jason will change edgar
+// Answer: Both edgar.name and jason.name will be "Jason". this is because Giant is a class and classes are reference types. This means that since the instance jason is set equal to edgar, any changes to jason will change edgar
 
 // Q7:
 
@@ -343,5 +345,86 @@ struct BankAccount {
     growth = balance - startingBalance
         return growth
     }
+}
+
+// Q8.
+enum GameOfThronesHouse: String {
+    case stark, lannister, targaryen, baratheon
+    
+    func correctThrone(_ house: GameOfThronesHouse) -> String {
+        var correctThroneStr = ""
+        switch house {
+        case .stark:
+            correctThroneStr = "House Stark - Winter is coming"
+        case .lannister:
+            correctThroneStr = "House Lannister - A Lannister always pays his debts"
+        case .targaryen:
+            correctThroneStr = "House Targaryen - Fire and Blood"
+        case .baratheon:
+            correctThroneStr = "House Baratheon - Ours is the Fury"
+        }
+        return correctThroneStr
+    }
+
+}
+
+// a. Write a function that takes an instance of GameOfThronesHouse as input and, using a switch statement, returns the correct house words.
+
+func correctThrone(_ house: GameOfThronesHouse) -> String {
+    var correctThroneStr = ""
+    switch house {
+    case .stark:
+        correctThroneStr = "House Stark - Winter is coming"
+    case .lannister:
+        correctThroneStr = "House Lannister - A Lannister always pays his debts"
+    case .targaryen:
+        correctThroneStr = "House Targaryen - Fire and Blood"
+    case .baratheon:
+        correctThroneStr = "House Baratheon - Ours is the Fury"
+    }
+    return correctThroneStr
+}
+
+// Q9.
+class MusicLibrary {
+    var tracks: [String]
+
+    init() {
+        tracks = []
+    }
+
+    func add(track: String) {
+        tracks.append(track)
+    }
+}
+
+let library1 = MusicLibrary()
+library1.add(track: "Michelle")
+library1.add(track: "Voodoo Child")
+let library2 = library1 // Im assuming this was supposed to be library1 so i changed it.
+library2.add(track: "Come As You Are")
+
+// Answer: library1 and library2 are the same because classes are reference types so so long as library2 is set equal to library1 any additions to either will change the other.
+
+
+// Q10. Make a function that takes in an array of strings and returns an array of strings. The function should determine if the string can be typed out using just one row on the keyboard. If the string can be typed out using just one row, that string should be in the returned array.
+
+var inputArr = ["Hello", "Alaska", "Dad", "Peace", "Power"]
+
+
+func wordsOnOneRow(_ inputArr: [String]) -> [String] {
+
+    var wordsOnOneRow = [String]()
+
+    let keyBoardRowOne: Set<Character> = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
+    let keyBoardRowTwo: Set<Character> = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
+    let keyBoardRowThree: Set<Character> = ["Z", "X", "C", "V", "B", "N", "M"]
+
+    for word in inputArr {
+        if Set(word.uppercased()).isSubset(of: keyBoardRowOne) || Set(word.uppercased()).isSubset(of: keyBoardRowTwo) || Set(word.uppercased()).isSubset(of: keyBoardRowThree) {
+            wordsOnOneRow.append(word)
+        }
+    }
+    return wordsOnOneRow
 }
 
