@@ -294,21 +294,23 @@ func gOtQuote (house: GameOfThronesHouse) -> String {
 //
 //Output: ["Alaska", "Dad", "Power"]
 
-func isWithinRow(strArr: [String]) {
-    let rowOne:CharacterSet = ["q","w","e","r","t","y","u","i","o","p"]
-    let rowTwo:CharacterSet = ["a","s","d","f","g","h","j","k","l"]
-    let rowThree:CharacterSet = ["z","x","c","v","b","n","m"]
+func isWithinRow(strArr: [String]) -> [String] {
+    let rowOne:Set<Character> = ["q","w","e","r","t","y","u","i","o","p"]
+    let rowTwo:Set<Character> = ["a","s","d","f","g","h","j","k","l"]
+    let rowThree:Set<Character> = ["z","x","c","v","b","n","m"]
     
-    strArr.filter { (str) -> Bool in
+    let filteredArr = strArr.filter { (str) -> Bool in
         //need to figure out how to compare char of inputStr with characterSet
-        if st
-        
-        {
+        let strCharAsSet:Set<Character> = Set(str.lowercased())
+        print(strCharAsSet)
+        if strCharAsSet.isSubset(of: rowOne) || strCharAsSet.isSubset(of: rowTwo) || strCharAsSet.isSubset(of: rowThree){
             return true
         } else {
             return false
         }
     }
+    
+    return filteredArr
 }
 
 isWithinRow(strArr: ["Hello", "Alaska", "Dad", "Peace", "Power"])

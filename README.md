@@ -577,3 +577,26 @@ Input: ["Hello", "Alaska", "Dad", "Peace", "Power"]
 
 Output: ["Alaska", "Dad", "Power"]
 ```
+
+```swift
+func isWithinRow(strArr: [String]) -> [String] {
+    let rowOne:Set<Character> = ["q","w","e","r","t","y","u","i","o","p"]
+    let rowTwo:Set<Character> = ["a","s","d","f","g","h","j","k","l"]
+    let rowThree:Set<Character> = ["z","x","c","v","b","n","m"]
+    
+    let filteredArr = strArr.filter { (str) -> Bool in
+        //need to figure out how to compare char of inputStr with characterSet
+        let strCharAsSet:Set<Character> = Set(str.lowercased())
+        print(strCharAsSet)
+        if strCharAsSet.isSubset(of: rowOne) || strCharAsSet.isSubset(of: rowTwo) || strCharAsSet.isSubset(of: rowThree){
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    return filteredArr
+}
+
+isWithinRow(strArr: ["Hello", "Alaska", "Dad", "Peace", "Power"])
+```
