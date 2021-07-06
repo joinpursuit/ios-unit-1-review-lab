@@ -1,6 +1,7 @@
 # Unit 1 Review Lab
 
 Before completing any of the review questions below, ensure that you have answered each question in the previous labs.
+Ok, going to complete previous labs.
 
 ## Question 1
 
@@ -107,6 +108,26 @@ Given an Array of Arrays of Ints, write a function that returns the Array of Int
 Input: [[2,4,1],[3,0],[9,3]]
 
 Output: [9,3]
+
+Answer:
+
+func largestSumOfAnArray (arrayNum1: [Int], arrayNum2: [Int], arrayNum3: [Int]) -> [Int] {
+    let sum1 = arrayNum1.reduce(0, +)
+    let sum2 = arrayNum2.reduce(0, +)
+    let sum3 = arrayNum3.reduce(0, +)
+    
+    if sum1 > sum2 && sum1 > sum3 {
+        return arrayNum1
+    } else if sum2 > sum1 && sum2 > sum3 {
+        return arrayNum2
+    } else if sum3 > sum1 && sum3 > sum2 {
+    return arrayNum3
+}
+    return[]
+}
+
+print(largestSumOfAnArray(arrayNum1: [2,4,1], arrayNum2: [3,0], arrayNum3: [9,3]))
+// Prints [9,3]
 ```
 
 ## Question 5
@@ -242,4 +263,26 @@ Make a function that takes in an array of strings and returns an array of string
 Input: ["Hello", "Alaska", "Dad", "Peace", "Power"]
 
 Output: ["Alaska", "Dad", "Power"]
+
+Answer:
+
+let upperLettersOnKeyboard = Set("qwertyuiop")
+let middleLettersOnKeyboard = Set("asdfghjkl")
+let lowerLettersOnKeyboard = Set("zxcvbnm")
+
+func comparingWordsToKeyboardPosition(arrayOfWords: [String]) -> [String] {
+    var newArray = [String]()
+    for word in arrayOfWords {
+        if Set(word.lowercased()).isSubset(of: upperLettersOnKeyboard) ||
+            Set(word.lowercased()).isSubset(of: middleLettersOnKeyboard) ||
+            Set(word.lowercased()).isSubset(of: lowerLettersOnKeyboard) {
+            newArray.append(word)
+        }
+    }
+    return newArray
+}
+
+print(comparingWordsToKeyboardPosition(arrayOfWords: ["Hello", "Alaska", "Dad", "Peace", "Power"]))
+
+// Prints: ["Alaska", "Dad", "Power"]
 ```
